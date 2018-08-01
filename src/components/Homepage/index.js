@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import './style.css';
+import Card from '../Card';
 
 export default class Homepage extends Component {
   componentDidMount() {
@@ -17,14 +18,21 @@ export default class Homepage extends Component {
       );
     } else {
       displayJobs = this.props.jobs.map(job => (
-        <div key={job.id}>
-          <li>
-            {job.title} @{job.company}
-          </li>
-          <li>
-            {job.salary} | {job.equity}
-          </li>
-        </div>
+        // <div key={job.id}>
+        //   <li>
+        //     {job.title} @{job.company}
+        //   </li>
+        //   <li>
+        //     {job.salary} | {job.equity}
+        //   </li>
+        // </div>
+        <Card
+          key={job.id}
+          title={job.title}
+          company={job.company}
+          salary={job.salary}
+          equity={job.equity}
+        />
       ));
     }
 
@@ -41,5 +49,7 @@ export default class Homepage extends Component {
 }
 
 Homepage.propTypes = {
-  currentUser: PropTypes.object
+  // where is currentUser?
+  currentUser: PropTypes.object,
+  jobs: PropTypes.array.isRequired
 };

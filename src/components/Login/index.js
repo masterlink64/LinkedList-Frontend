@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LinkedListLogo from '../../images/LinkedList_logo.png';
+import PropTypes from 'prop-types';
 import './style.css';
 
 const DEFAULT_STATE = {
@@ -83,3 +84,7 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  error: PropTypes.object
+};

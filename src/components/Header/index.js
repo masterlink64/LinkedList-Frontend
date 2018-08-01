@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import UserProfilePlaceholder from '../../images/user_placeholder.png';
 import './style.css';
+import PropTypes from 'prop-types';
 
 const DEFAULT_STATE = {
   searchText: '',
@@ -14,7 +15,7 @@ export default class Header extends Component {
 
   handleSearch = e => {
     e.preventDefault();
-    // TODO: search
+    // TODO: handle search feature!!!
   };
 
   handleChange = e => {
@@ -71,4 +72,10 @@ export default class Header extends Component {
 Header.defaultProps = {
   searchCategories: ['companies', 'jobs', 'people'],
   profilePic: UserProfilePlaceholder
+};
+
+Header.PropTypes = {
+  searchCategories: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  profilePic: PropTypes.string
 };
