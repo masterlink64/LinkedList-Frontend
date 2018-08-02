@@ -14,6 +14,9 @@ export function authRequest(type, usernameOrHandle, password) {
           password
         });
         dispatch(authSuccess('user', token));
+        // dispatch current user? in order to set currentUser reduxState
+        // as you sign in or sign up dispatch an action to set reduxState to allow it to be
+        // used with connected components
       } catch (error) {
         dispatch(authFail('user', error));
         return Promise.reject();

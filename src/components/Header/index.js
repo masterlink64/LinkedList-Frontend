@@ -12,10 +12,32 @@ const DEFAULT_STATE = {
 
 export default class Header extends Component {
   state = DEFAULT_STATE;
-
-  handleSearch = e => {
+  // set searchCat
+  handleSearch = async e => {
+    let searchCat = '';
     e.preventDefault();
+    // ['companies', 'jobs', 'people']
+    if (this.state.searchCategoryIdx === 0) {
+      searchCat = 'companies';
+    } else if (this.state.searchCategoryIdx === 1) {
+      searchCat = 'jobs';
+    } else if (this.state.searchCategoryIdx === 2) {
+      searchCat = 'users';
+    }
     // TODO: handle search feature!!!
+    // this should invoke actionCreator functions to search the API with keyword
+
+    try {
+      await this.props.search(searchCat, this.state.searchText);
+      this.props.history.push('/results');
+      // after this request is completed you get an updated redux state
+      // dispatch action and will update redux state with the result of the API call
+      // searchArr should be an arr of search terms.
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    this.setState(DEFAULT_STATE);
   };
 
   handleChange = e => {
@@ -28,7 +50,14 @@ export default class Header extends Component {
 
   render() {
     const { searchText, searchCategoryIdx } = this.state;
-    const { searchCategories, displayName, profilePic } = this.props;
+    // the props below are either from redux state or default props
+    // NEED to mapStateToProps in order to get reduxState to props
+    const {
+      searchCategories,
+      displayName,
+      profilePic,
+      currentUser
+    } = this.props;
     return (
       <div className="Header">
         <Link to="/" className="Header-logo">
@@ -58,11 +87,17 @@ export default class Header extends Component {
               </div>
             ))}
           </div>
+          {/* link is preventing handleSubmit from working! */}
+          {/* <Link to="/results"> */}
           <input type="submit" value="Search" className="search-btn" />
+          {/* </Link> */}
         </form>
         <div className="profile-area">
           <img src={profilePic} alt="Profile" />
-          <span>{displayName}</span>
+          {/* displayName is coming from currentUser */}
+          {/* need to be able to grab current user from database */}
+          {/* make button that will call currentUser(type:FETCH_CURRENT_USER_SUCCESS?) */}
+          <span>{this.props.currentUser.displayName}</span>
         </div>
       </div>
     );

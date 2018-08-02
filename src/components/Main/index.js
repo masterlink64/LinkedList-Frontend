@@ -5,6 +5,8 @@ import Signup from '../../containers/Signup';
 import Homepage from '../../containers/Homepage';
 import NoAuthRoute from '../../containers/NoAuthRoute';
 import ProtectedRoute from '../../containers/ProtectedRoute';
+// need to import new search component
+import SearchResults from '../../containers/SearchResults';
 
 export default class Main extends Component {
   render() {
@@ -16,6 +18,7 @@ export default class Main extends Component {
           <NoAuthRoute exact path="/signup" component={Signup} />
           {/* ProtectedRoutes only let you go to them if you are authenticated */}
           <ProtectedRoute exact path="/" component={Homepage} />
+          <ProtectedRoute exact path="/results" component={SearchResults} />
         </Switch>
       </div>
     );

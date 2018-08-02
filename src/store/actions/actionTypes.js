@@ -9,6 +9,7 @@ export const USER_AUTH_FAIL = 'USER_AUTH_FAIL';
 export const USER_TOKEN_FOUND = 'USER_TOKEN_FOUND';
 export const NO_TOKEN_FOUND = 'NO_TOKEN_FOUND';
 
+// already have current user action types
 export const FETCH_CURRENT_USER_REQUEST = 'FETCH_CURRENT_USER_REQUEST';
 export const FETCH_CURRENT_USER_SUCCESS = 'FETCH_CURRENT_USER_SUCCESS';
 export const FETCH_CURRENT_USER_FAIL = 'FETCH_CURRENT_USER_FAIL';
@@ -29,3 +30,7 @@ export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const LOGOUT = 'LOGOUT';
+
+export const FETCH_SEARCH_REQUEST = 'FETCH_SEARCH_REQUEST';
+export const FETCH_SEARCH_SUCCESS = 'FETCH_SEARCH_SUCCESS';
+export const FETCH_SEARCH_FAIL = 'FETCH_SEARCH_FAIL';
