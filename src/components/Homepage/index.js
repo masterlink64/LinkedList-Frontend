@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import Header from '../../containers/Header';
 import './style.css';
 import Card from '../Card';
+import { getToken } from '../../services/token';
+import jwtDecode from 'jwt-decode';
 
 export default class Homepage extends Component {
   componentDidMount() {
     this.props.fetchJobsRequest();
+    // fetch current user
+    this.props.fetchCurrentUserRequest(this.props.username);
   }
 
   render() {
@@ -38,7 +42,7 @@ export default class Homepage extends Component {
 
     return (
       <div>
-        <Header />
+        <Header {...this.props} />
         <div className="feed">
           <h1>Jobs</h1>
           {displayJobs}
@@ -47,6 +51,10 @@ export default class Homepage extends Component {
     );
   }
 }
+
+Homepage.defaultProps = {
+  category: 'jobs'
+};
 
 Homepage.propTypes = {
   // where is currentUser?

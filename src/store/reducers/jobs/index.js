@@ -8,6 +8,9 @@ export default function jobsReducer(state = DEFAULT_STATE, action) {
       // expects an array
       return action.jobs;
     }
+    case t.LOGOUT: {
+      return DEFAULT_STATE;
+    }
     default:
       return state;
   }

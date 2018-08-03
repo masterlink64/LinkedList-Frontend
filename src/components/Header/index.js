@@ -3,33 +3,38 @@ import { Link } from 'react-router-dom';
 import UserProfilePlaceholder from '../../images/user_placeholder.png';
 import './style.css';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 
 const DEFAULT_STATE = {
   searchText: '',
   searchCategoryIdx: 0,
-  isDropdownVisible: false
+  isDropdownVisible: false,
+  redirect: false,
+  category: 'jobs'
 };
 
 export default class Header extends Component {
   state = DEFAULT_STATE;
   // set searchCat
   handleSearch = async e => {
-    let searchCat = '';
     e.preventDefault();
     // ['companies', 'jobs', 'people']
-    if (this.state.searchCategoryIdx === 0) {
-      searchCat = 'companies';
-    } else if (this.state.searchCategoryIdx === 1) {
-      searchCat = 'jobs';
-    } else if (this.state.searchCategoryIdx === 2) {
-      searchCat = 'users';
-    }
+    let searchCat = this.props.searchCategories[this.state.searchCategoryIdx];
+    // if (this.state.searchCategoryIdx === 0) {
+    //   searchCat = 'companies';
+    // } else if (this.state.searchCategoryIdx === 1) {
+    //   searchCat = 'jobs';
+    // } else if (this.state.searchCategoryIdx === 2) {
+    //   searchCat = 'users';
+    // }
     // TODO: handle search feature!!!
     // this should invoke actionCreator functions to search the API with keyword
 
     try {
       await this.props.search(searchCat, this.state.searchText);
-      this.props.history.push('/results');
+      this.setState({ redirect: true });
+
+      //this.props.history.push('/results');
       // after this request is completed you get an updated redux state
       // dispatch action and will update redux state with the result of the API call
       // searchArr should be an arr of search terms.
@@ -39,7 +44,22 @@ export default class Header extends Component {
     }
     this.setState(DEFAULT_STATE);
   };
-
+  // showMenu = evt => {
+  //   evt.preventDefault();
+  //   this.setState({ isDropdownVisible: true });
+  // };
+  // closeMenu = evt => {
+  //   evt.preventDefault();
+  //   this.setState({ isDropdownVisible: false });
+  // };
+  handleProfile = e => {
+    // <Redirect to={`/users/${this.props.currentUser.username}`} />;
+    this.props.history.push(`/users/${this.props.currentUser.username}`);
+  };
+  handleLogout = e => {
+    localStorage.clear();
+    this.props.logout();
+  };
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -49,7 +69,7 @@ export default class Header extends Component {
   };
 
   render() {
-    const { searchText, searchCategoryIdx } = this.state;
+    const { searchText, searchCategoryIdx, isDropdownVisible } = this.state;
     // the props below are either from redux state or default props
     // NEED to mapStateToProps in order to get reduxState to props
     const {
@@ -58,6 +78,15 @@ export default class Header extends Component {
       profilePic,
       currentUser
     } = this.props;
+    if (this.state.redirect) {
+      // return <Redirect to="/results"/>;
+      this.props.history.push({
+        pathname: '/results',
+        state: {
+          category: this.props.searchCategories[this.state.searchCategoryIdx]
+        }
+      });
+    }
     return (
       <div className="Header">
         <Link to="/" className="Header-logo">
@@ -92,12 +121,17 @@ export default class Header extends Component {
           <input type="submit" value="Search" className="search-btn" />
           {/* </Link> */}
         </form>
-        <div className="profile-area">
+        <div className="profile-area" onClick={this.showMenu}>
           <img src={profilePic} alt="Profile" />
           {/* displayName is coming from currentUser */}
           {/* need to be able to grab current user from database */}
           {/* make button that will call currentUser(type:FETCH_CURRENT_USER_SUCCESS?) */}
-          <span>{this.props.currentUser.displayName}</span>
+          <span>{currentUser.first_name}</span>
+          <div className={`dropdown-content`}>
+            {/* link to logout */}
+            <div onClick={this.handleProfile}>Profile</div>
+            <div onClick={this.handleLogout}>Logout</div>
+          </div>
         </div>
       </div>
     );
@@ -105,7 +139,7 @@ export default class Header extends Component {
 }
 
 Header.defaultProps = {
-  searchCategories: ['companies', 'jobs', 'people'],
+  searchCategories: ['companies', 'jobs', 'users'],
   profilePic: UserProfilePlaceholder
 };
 

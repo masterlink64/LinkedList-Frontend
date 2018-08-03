@@ -29,6 +29,8 @@ export default class Login extends Component {
         userCredentials.username,
         userCredentials.password
       );
+      // where we want to get current user data?
+      await this.props.fetchCurrentUserRequest(userCredentials.username);
       // what is this history push? does it push to local storage
       // this is force redirect to '/' route
       this.props.history.push('/');

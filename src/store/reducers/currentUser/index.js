@@ -20,6 +20,8 @@ export default function currentUser(state = DEFAULT_STATE, action) {
       };
     case t.LOGOUT:
       return DEFAULT_STATE;
+    case t.USER_TOKEN_FOUND:
+      return { ...state, username: action.username };
     case t.CREATE_USER_SUCCESS:
       return { ...state, ...action.newUser };
     default:
