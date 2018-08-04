@@ -41,6 +41,13 @@ export default function errorReducer(state = DEFAULT_STATE, action) {
         title: 'Unable to load jobs.',
         message: action.error.message
       };
+    case t.FETCH_CURRENT_USER_FAIL:
+      return {
+        ...state,
+        hasError: true,
+        title: 'Unable to fetch current userr',
+        message: action.error.message
+      };
     default:
       return state;
   }

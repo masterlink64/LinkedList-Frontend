@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Edit from '../../components/Edit';
+import { edit } from '../../store/actions/edit';
 
 function mapStateToProps(reduxState) {
   return {
@@ -8,4 +9,7 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps)(Edit);
+export default connect(
+  mapStateToProps,
+  { edit }
+)(Edit);

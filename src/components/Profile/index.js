@@ -30,7 +30,7 @@ export default class Profile extends Component {
             <h3>Employed by @{current_company}</h3>
             <div>
               <div className="edit">
-                <Link to="/">Edit</Link>
+                <Link to="/edit">Edit</Link>
               </div>
             </div>
           </div>

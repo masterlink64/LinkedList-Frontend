@@ -24,6 +24,11 @@ export default function currentUser(state = DEFAULT_STATE, action) {
       return { ...state, username: action.username };
     case t.CREATE_USER_SUCCESS:
       return { ...state, ...action.newUser };
+    case t.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        ...action.currentUser
+      };
     default:
       return state;
   }
