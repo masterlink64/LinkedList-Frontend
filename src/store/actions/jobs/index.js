@@ -9,6 +9,7 @@ export function fetchJobsRequest() {
       // call the API for /jobs, auth required
       let jobs = await callAPI('get', '/jobs', true);
       // dispatch the success action creator and the jobs that we got back
+      // jobs will be an obj with an array of objs at the key of jobs
       dispatch(fetchJobsSuccess(jobs));
     } catch (error) {
       dispatch(fetchJobsFail(error));

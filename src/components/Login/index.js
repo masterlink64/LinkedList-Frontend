@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LinkedListLogo from '../../images/LinkedList_logo.png';
+import PropTypes from 'prop-types';
 import './style.css';
 
 const DEFAULT_STATE = {
@@ -20,12 +21,18 @@ export default class Login extends Component {
     this.props.clearError();
     let userCredentials = { ...this.state };
     // call redux
+    // why isnt this request in a componentDidMount?
     try {
+      // if there is an error will proceed to the catch block?
       await this.props.authRequest(
         'user',
         userCredentials.username,
         userCredentials.password
       );
+      // where we want to get current user data?
+      await this.props.fetchCurrentUserRequest(userCredentials.username);
+      // what is this history push? does it push to local storage
+      // this is force redirect to '/' route
       this.props.history.push('/');
     } catch (error) {
       return;
@@ -83,3 +90,7 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  error: PropTypes.object
+};
