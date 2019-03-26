@@ -25,6 +25,7 @@ export default class Signup extends Component {
     e.preventDefault();
     this.props.clearError();
     let newUser = { ...this.state };
+    // if field is left empty delete key/value
     for (let field in newUser) {
       if (!newUser[field]) {
         delete newUser[field];

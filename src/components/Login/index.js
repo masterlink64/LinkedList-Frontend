@@ -21,18 +21,14 @@ export default class Login extends Component {
     this.props.clearError();
     let userCredentials = { ...this.state };
     // call redux
-    // why isnt this request in a componentDidMount?
     try {
-      // if there is an error will proceed to the catch block?
       await this.props.authRequest(
         'user',
         userCredentials.username,
         userCredentials.password
       );
-      // where we want to get current user data?
+      // where we want to get current user data
       await this.props.fetchCurrentUserRequest(userCredentials.username);
-      // what is this history push? does it push to local storage
-      // this is force redirect to '/' route
       this.props.history.push('/');
     } catch (error) {
       return;
@@ -54,15 +50,13 @@ export default class Login extends Component {
       <div className="login-container">
         <img src={LinkedListLogo} alt="LinkedList" />
         <div className="login-form-container">
-          <h2>
-            Welcome to LinkedList, where you can totally like, land a sweet
-            developer job or whatever.
-          </h2>
+          <h2>Welcome to LinkedList. Find your dream job here!</h2>
           {displayError}
           <form onSubmit={this.handleSubmit}>
             <li className="login-form-row">
               <label htmlFor="username">Username</label>
               <input
+                id="username"
                 type="text"
                 name="username"
                 onChange={this.handleChange}
@@ -72,6 +66,7 @@ export default class Login extends Component {
             <li className="login-form-row">
               <label htmlFor="password">Password</label>
               <input
+                id="password"
                 type="password"
                 name="password"
                 onChange={this.handleChange}

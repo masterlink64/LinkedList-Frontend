@@ -17,6 +17,7 @@ export function authRequest(type, usernameOrHandle, password) {
         // dispatch current user? in order to set currentUser reduxState
         // as you sign in or sign up dispatch an action to set reduxState to allow it to be
         // used with connected components
+        // if API call is successful you will store the token in local storage
       } catch (error) {
         dispatch(authFail('user', error));
         return Promise.reject();

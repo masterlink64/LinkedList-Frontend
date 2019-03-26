@@ -18,7 +18,7 @@ export function createUserRequest(newUserPayload) {
 function createUserSuccess(newUser) {
   return {
     type: t.CREATE_USER_SUCCESS,
-    newUser
+    newUser // newUser: newUser
   };
 }
 
